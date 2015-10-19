@@ -1,0 +1,43 @@
+allprojects {
+
+    apply plugin: 'maven'
+    apply plugin: 'scala'
+    apply plugin: 'idea'
+    apply plugin: 'maven-publish'
+    apply plugin: 'java-library-distribution'
+
+    repositories {
+            mavenLocal() //use maven local for the latest version of streamlib and t-dunning's t-digest
+            mavenCentral()
+    }
+
+    dependencies {
+        compile 'org.scala-lang:scala-library:2.11.4'
+        compile 'org.scala-lang:scala-compiler:2.11.4'
+     //   compile 'com.clearspring.analytics:stream:2.9.1'
+     //   compile 'org.elasticsearch:elasticsearch:2.0.0-rc1'
+    }
+
+    distributions {
+        main {
+            contents {
+                into('deploy') {
+                    from(jar)
+                }
+            }
+        }
+    }
+}
+
+project(':hyperloglog') {
+
+    dependencies {
+        //add project specific dependencies such as: compile 'org.apache.lucene:lucene-core:3.6.0'
+    }
+}
+
+//project(':tdigest') {
+//    dependencies {
+//        compile 'com.tdunning:t-digest:3.2-SNAPSHOT'
+//    }
+//}
